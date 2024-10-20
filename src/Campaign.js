@@ -3,7 +3,7 @@ import React from 'react';
 import './Campaign.css';
 import Header from './Header';
 import Footer from './Footer';
-
+import Event from './Events';
 // Sample data for donations
 const donations = [
     { donor: "Anonymous", amount: "$100", date: "2024-10-19" },
@@ -12,10 +12,15 @@ const donations = [
 ];
 
 const CampaignSection = () => {
-    const targetAmount = 1000; // Target amount for the campaign
-    const currentAmount = donations.reduce((total, donation) => total + parseFloat(donation.amount.replace('$', '')), 0);
-    const progressPercentage = Math.min((currentAmount / targetAmount) * 100, 100); // Calculate percentage
 
+    const scrollToSection = (id) => {
+        document.getElementById(id).scrollIntoView({ behavior: 'smooth' });
+      };
+
+    
+    const targetAmount = 1000; 
+    const currentAmount = donations.reduce((total, donation) => total + parseFloat(donation.amount.replace('$', '')), 0);
+    const progressPercentage = Math.min((currentAmount / targetAmount) * 100, 100); 
     return (
         <>
             <Header />
@@ -28,6 +33,8 @@ const CampaignSection = () => {
                         <img src="your-image-url-2" alt="Campaign Image 2" />
                     </div>
 
+                    
+
                     <div className="campaign-side">
                         <div className="progress-container">
                             <div className="progress-info">
@@ -38,7 +45,7 @@ const CampaignSection = () => {
                                 <div className="progress" style={{ width: `${progressPercentage}%` }}></div>
                             </div>
                             <p className="progress-date">{new Date().toLocaleDateString()}</p>
-                            <button className="donate-button">Donate Now</button>
+                            <button className="donate-button" onClick={() => scrollToSection('donate-section-abcd') }>Donate Now</button>
                         </div>
 
                         <div className="donation-list-container">
@@ -52,8 +59,11 @@ const CampaignSection = () => {
                                 ))}
                             </div>
                         </div>
+                        
                     </div>
+                    
                 </div>
+                <Event />
             </div>
             <Footer />
         </>

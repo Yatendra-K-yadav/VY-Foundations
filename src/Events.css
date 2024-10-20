@@ -6,7 +6,7 @@
   }
   
   .calendar-icon {
-    position: fixed; /* Fixed positioning */
+    position: relative; /* Fixed positioning */
     right: 20px; /* Distance from the right edge */
     bottom: 200px; /* Distance from the bottom edge */
     background: none;
@@ -18,7 +18,7 @@
   }
   
   .calendar-popup {
-    position: absolute; /* Positioning the calendar */
+    position: relative; /* Positioning the calendar */
     top: 50px; /* Adjust as needed */
     left: 50%; /* Center horizontally */
     transform: translateX(-50%); /* Center horizontally */

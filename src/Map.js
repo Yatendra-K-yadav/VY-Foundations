@@ -1,4 +1,3 @@
-// src/MapComponent.js
 import React, { useEffect } from 'react';
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
@@ -40,7 +39,11 @@ const MapComponent = () => {
                 `);
         });
 
-    }, []);
+        // Cleanup function to remove the map instance
+        return () => {
+            map.remove(); // Removes the map instance from the DOM
+        };
+    }, []); // Empty dependency array ensures this runs only once
 
     return (
         <div>
