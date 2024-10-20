@@ -1,0 +1,108 @@
+/* src/CampaignSection.css */
+.campaign-section {
+    background-color: #f8f8f8; /* Off-white background */
+    padding: 20px;
+}
+
+.campaign-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start; /* Align items at the top */
+}
+
+.campaign-text {
+    width: 60%; /* Adjust width as needed */
+}
+
+.campaign-text h2 {
+    font-size: 1.8em; /* Heading size */
+}
+
+.campaign-text p {
+    margin: 10px 0; /* Space between paragraphs */
+}
+
+.campaign-text img {
+    max-width: 100%; /* Responsive images */
+    height: auto; /* Maintain aspect ratio */
+    margin: 10px 0; /* Space between images */
+}
+
+.campaign-side {
+    width: 35%; /* Width for the right side containing progress and donations */
+    display: flex;
+    flex-direction: column; /* Stack progress and donations vertically */
+}
+
+.progress-container,
+.donation-list-container {
+    background: #fff; /* White background for containers */
+    padding: 20px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Shadow effect */
+    margin-bottom: 20px; /* Space between the two sections */
+
+}
+
+.progress-info {
+    display: flex;
+    justify-content: space-between; /* Align progress title and percentage on opposite sides */
+    margin-bottom: 10px; /* Space below the progress info */
+}
+
+.progress-percentage {
+    font-size: 20px; /* Larger font size for percentage */
+    font-weight: bold; /* Make percentage bold */
+    color: #888;
+}
+
+.progress-date {
+    font-size: 1em; /* Smaller font size for date */
+    color: #555; /* Gray color for date */
+}
+
+.progress-bar {
+    background-color: #e0e0e0; /* Light gray background */
+    height: 20px; /* Height of the progress bar */
+    margin-bottom: 10px; /* Space below the progress bar */
+}
+
+.progress {
+    background-color: #ff9800; /* Orange color for progress */
+    height: 100%; /* Fill the height of the progress bar */
+    transition: width 0.3s; /* Smooth transition for progress change */
+}
+
+.donate-button {
+    align-self: flex-end; /* Align button to the right */
+    background-color: #ff9800; /* Orange button color */
+    color: white; /* White text color */
+    border: none; /* No border */
+    padding: 10px 15px; /* Padding inside the button */
+    border-radius: 5px; /* Rounded corners for the button */
+    cursor: pointer; /* Pointer cursor on hover */
+    margin-top: auto; /* Push button to the bottom of the container */
+    font-size: 1em; /* Font size for button */
+}
+
+.donate-button:hover {
+    background-color: #754905; /* Darker shade on hover */
+}
+
+.donation-list-container h4 {
+    margin-bottom: 10px; /* Space below the section title */
+}
+
+.donation-list {
+    margin-top: 10px; /* Space above the donation list */
+}
+
+.donation-item {
+    display: flex; /* Flexbox for alignment */
+    justify-content: space-between; /* Aligns items to opposite sides */
+    margin: 5px 0; /* Space between donation items */
+}
+
+.donation-date {
+    color: #888; /* Gray color for donation date */
+    font-size: 0.9em; /* Smaller font size for date */
+}

@@ -1,0 +1,41 @@
+/* event.css */
+.event-container {
+    text-align: center;
+    position: relative; /* Keep relative positioning for other elements */
+    
+  }
+  
+  .calendar-icon {
+    position: fixed; /* Fixed positioning */
+    right: 20px; /* Distance from the right edge */
+    bottom: 200px; /* Distance from the bottom edge */
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 24px;
+    color: #ff9800;
+    z-index: 1000; /* Ensure it appears above other elements */
+  }
+  
+  .calendar-popup {
+    position: absolute; /* Positioning the calendar */
+    top: 50px; /* Adjust as needed */
+    left: 50%; /* Center horizontally */
+    transform: translateX(-50%); /* Center horizontally */
+    z-index: 1000; /* Ensure it appears above other elements */
+    background: white;
+    border: 1px solid #ccc;
+    padding: 10px;
+    border-radius: 5px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .demo-date {
+    background-color: #ffeb3b; /* Highlight demo dates with yellow */
+  }
+  
+  .selected-date {
+    margin-top: 10px;
+    font-weight: bold;
+  }
+  
