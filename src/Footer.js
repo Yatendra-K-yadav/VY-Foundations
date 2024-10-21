@@ -4,8 +4,32 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEnvelope, faPhone } from '@fortawesome/free-solid-svg-icons';
 import { faFacebook, faTwitter, faInstagram } from '@fortawesome/free-brands-svg-icons';
 
+import axios from 'axios';
+
+axios.defaults.baseURL = "http://localhost:8080/";
+
+
 const Footer = () => {
   const [hoveredItem, setHoveredItem] = useState(null);
+  const [emaildata, setemaildata] = useState({
+    emailid:""
+  })
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    console.log('Submitting email:', emaildata); // Log the email data
+    try {
+        const response = await axios.post("/createsubiction", emaildata);
+        console.log('Response:', response.data);
+        if (response.data.success) {
+            alert(response.data.message);
+            setemaildata({ emailid: "" });
+        }
+    } catch (error) {
+        console.error("Error submitting form:", error.response.data); // Log the error response
+    }
+};
+
 
   const handleMouseEnter = (item) => {
     setHoveredItem(item);
@@ -14,6 +38,12 @@ const Footer = () => {
   const handleMouseLeave = () => {
     setHoveredItem(null);
   };
+
+  const handleEmailChange = (e) => {
+    setemaildata({ emailid: e.target.value }); 
+  };
+
+  
 
   return (
     <footer className="footer-container">
@@ -29,7 +59,6 @@ const Footer = () => {
         <div className="footer-section">
           <h4>Quick Links</h4>
           <ul>
-            <li><a href="/about">About</a></li>
             <li><a href="/events">Events</a></li>
             <li><a href="/donate">Donate</a></li>
             <li><a href="/contact">Contact Us</a></li>
@@ -92,11 +121,14 @@ const Footer = () => {
 
         <div className="footer-section subscribe-section">
           <h1>SUBSCRIBE TO GET LATEST NEWS AND UPDATES </h1>
-          <form className="subscribe-form">
+          <form className="subscribe-form" onSubmit={handleSubmit}>
             <input 
               type="email" 
+              id="email"
               placeholder="Your email address" 
               required 
+              value = {emaildata.emailid}
+              onChange={handleEmailChange}
             />
             <button type="submit" className="subscribe-button">Subscribe</button>
           </form>

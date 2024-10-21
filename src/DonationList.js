@@ -17,9 +17,9 @@ const DonationsList = () => {
             setLoading(true);
             const response = await axios.get("/");
             console.log('Datalist def:', response); 
-            if (response.data.sucess) {
-
-                setDataList(response.data.data); 
+            console.log('Datalist frg:', response.data);
+            if (response.data.success) {
+                setDataList(response.data.users); 
                 console.log('Datalist abcd:', dataList); 
             } 
         } catch (error) {
@@ -30,10 +30,30 @@ const DonationsList = () => {
         }
     };
 
+    const handledelete = async (id) => {
+        try {
+            const data = await axios.delete("/delete/" + id);
+            
+            if (data.data.sucess) {
+                getFetchedData();
+                alert(data.data.message);
+            }
+        } catch (error) {
+            console.error("Error deleting user:", error);
+            alert("Failed to delete user. Please try again later.");
+        }
+        finally{
+            window.location.reload()
+        }
+    };
+
+
     useEffect(() => {
         getFetchedData();
     }, []);
 
+
+    console.log('Datalist abcdddd:', dataList);
 
 
     return (
@@ -68,7 +88,8 @@ const DonationsList = () => {
                             <th>Address</th>
                             <th>Amount</th>
                             <th>Details</th>
-                            <th>Actions</th>
+                            <th>PROGRESS</th>
+                            <th>DELETE</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -82,6 +103,7 @@ const DonationsList = () => {
                                 <td>{donation.amount || 'N/A'}</td>
                                 <td>{donation.details || 'N/A'}</td>
                                 <td>IN PROGRESS</td>
+                                <td><button onClick={() => handledelete(donation._id)}>DELETE</button></td>
                             </tr>
                         ))}
                     </tbody>
