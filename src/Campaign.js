@@ -1,11 +1,11 @@
-// src/CampaignSection.js
+
 import React from 'react';
 import './Campaign.css';
 import Header from './Header';
 import Footer from './Footer';
 import Event from './Events';
 
-// Sample data for donations
+
 const donations = [
     { donor: "Anonymous", amount: "$100", date: "2024-10-19" },
     { donor: "Anonymous", amount: "$50", date: "2024-10-18" },
@@ -30,8 +30,8 @@ const CampaignSection = () => {
                     <div className="campaign-text">
                         <h2>Join Our Campaign!</h2>
                         <p>Support our cause and make a difference in the community. Your donations will help us achieve our goals and provide necessary resources.</p>
-                        <img src="your-image-url-1" alt="Campaign Image 1" />
-                        <img src="your-image-url-2" alt="Campaign Image 2" />
+                        <img src="https://images.pexels.com/photos/6591164/pexels-photo-6591164.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="Campaign Image 1" />
+                        <img src="https://images.pexels.com/photos/6646903/pexels-photo-6646903.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Campaign Image 2" />
 
                         {/* Additional text paragraphs */}
                         <h2>Our Mission</h2>

@@ -17,9 +17,9 @@ const Footer = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log('Submitting email:', emaildata); // Log the email data
+    console.log('Submitting email:', emaildata); 
     try {
-        const response = await axios.post("/createsubiction", emaildata);
+        const response = await axios.post("/createsubcription", emaildata);
         console.log('Response:', response.data);
         if (response.data.success) {
             alert(response.data.message);

@@ -143,12 +143,15 @@ form button[type='button'] {
   margin-top: 2px;
 }
 
-.forgot-pass-link{
+.forgot-pass-link {
   text-decoration: none;
-  font-size: 1.3rem;
+  font-size: 1rem; 
+  padding: 8px 10px; 
+  cursor: pointer;
+
 }
 
-.forgot-pass-link:hover{
+.forgot-pass-link:hover {
   text-decoration: underline;
 }
 
@@ -176,6 +179,7 @@ form button[type='button'] {
   justify-content: center;
   align-items: center;
   column-gap: 10px;
+  
 }
 
 .login-center-buttons button:nth-child(2) img{
@@ -200,3 +204,4 @@ form button[type='button'] {
 .login-bottom-p a:hover{
   text-decoration: underline;
 }
+

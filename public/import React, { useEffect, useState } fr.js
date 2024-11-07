@@ -1,8 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import './Donate.css';
-import axios from 'axios';
-
-axios.defaults.baseURL = "http://localhost:8080/";
 
 const Donate = ({ id }) => {
     const [donationType, setDonationType] = useState(null);

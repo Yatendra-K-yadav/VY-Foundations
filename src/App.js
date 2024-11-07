@@ -7,6 +7,9 @@ import EventSignupSection from './EventSignup';
 import Home from './Home';
 import Donate from './Donate';
 import DonationsList from './DonationList';
+import ContactPage from './Contact_us';
+import Login from './Login';
+
 
 function App() {
   return (
@@ -17,8 +20,9 @@ function App() {
           <Route path="/campaign" element={<CampaignSection />} />
           <Route path="/signup" element={<EventSignupSection />} />
           <Route path="/events" element={<Event />} />
-          <Route path="/donate" element={<Donate />} />
+          <Route path="/contact" element={<ContactPage />} />
           <Route path="/donatelist" element={<DonationsList />} />
+          <Route path="/login" element={<Login />} />
         </Routes>
       </div>
     </Router>

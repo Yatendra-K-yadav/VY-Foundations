@@ -23,10 +23,26 @@ const MapComponent = () => {
 
         const locations = [
             {
-                name: "KJSCE",
+                name: "VY FOUNDATION",
                 coords: [19.0728, 72.8999],
                 description: "K. J. Somaiya College of Engineering",
             },
+            {
+                name: "MAITRAYANA CHARITY FOUNDATION",
+                coords: [19.07727, 72.89808],
+                description: "Maitrayana's vision is to create a gender-equal society in which adolescent girls and women can exercise their rights. ",
+            },
+            {
+                name: "The Bombay East Rotary Charitable Trust",
+                coords: [19.09182, 72.89247],
+                description: "The Bombay East Rotary Charitable Trust has gained immense expertise in offering Charitable Trusts, Social Welfare Service etc.",
+            },
+            {
+                name: "Umang Foundation Trust",
+                coords: [19.08460, 72.85194],
+                description: "At Umang we work with less privileged children education, sanitation & hygiene programs for women, Skill development & employability skills, Mental health awareness. ",
+            },
+
         ];
 
         locations.forEach(location => {
@@ -39,17 +55,16 @@ const MapComponent = () => {
                 `);
         });
 
-        // Cleanup function to remove the map instance
+        
         return () => {
-            map.remove(); // Removes the map instance from the DOM
+            map.remove(); 
         };
-    }, []); // Empty dependency array ensures this runs only once
+    }, []); 
 
     return (
         <div>
             <div className="location-info">
-                <h2>Where to Find Us</h2>
-                <h1>OUR LOCATIONS</h1>
+                <h1>LOCATIONS</h1>
             </div>
 
             <div id="map" style={{ height: '500px' }}></div>

@@ -5,7 +5,7 @@ import Header from './Header';
 import Footer from './Footer';
 import MapComponent from './Map';
 import Donate from './Donate';
-
+import Profile from './UserProfile';
 
 const Home = () => {
   const scrollToSection = (id) => {
@@ -74,4 +74,4 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default Home;
