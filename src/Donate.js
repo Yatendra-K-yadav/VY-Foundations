@@ -1,26 +1,36 @@
 import React, { useEffect, useState } from 'react';
 import './Donate.css';
 import axios from 'axios';
-
+import { useAuth0 } from '@auth0/auth0-react';
 axios.defaults.baseURL = "http://localhost:8080/";
 
 const Donate = ({ id }) => {
+    const { user, isAuthenticated, loginWithRedirect } = useAuth0();
+
+    // Wait for user to be available before using its properties
     const [donationType, setDonationType] = useState(null);
     const [showForm, setShowForm] = useState(false);
     const [formData, setFormData] = useState({
-        firstName: '',
-        lastName: '',
-        email: '',
+        name: user?.name ,  
+        email: user?.email , 
         mobile: '',
         address: '',
         amount: '',
+        donationType: '',
         details: '',
     });
+
     const [errorMessage, setErrorMessage] = useState(null);
     const [isAnimated, setIsAnimated] = useState(false);
 
     const handleDonateClick = (type) => {
         setDonationType(type);
+        setFormData(prevData => ({
+            name: user?.name,
+            email: user?.email,
+            ...prevData,
+            donationType: type 
+        }));
         setShowForm(true);
     };
 
@@ -28,12 +38,12 @@ const Donate = ({ id }) => {
         setShowForm(false);
         setDonationType(null);
         setFormData({
-            firstName: '',
-            lastName: '',
-            email: '',
+            name: user?.name,
+            email: user?.email,
             mobile: '',
             address: '',
             amount: '',
+            donationType: '',
             details: '',
         });
         setErrorMessage(null); 
@@ -55,12 +65,12 @@ const Donate = ({ id }) => {
             if (response.data.success) {
                 alert(response.data.message);
                 setFormData({
-                    firstName: '',
-                    lastName: '',
-                    email: '',
+                    name: user?.name,
+                    email: user?.email ,
                     mobile: '',
                     address: '',
                     amount: '',
+                    donationType: " ",
                     details: '',
                 });
                 handleCancelClick(); 
@@ -73,15 +83,20 @@ const Donate = ({ id }) => {
         }
     };
 
-    const googlePay = () => {
-        // Simulate Google Pay integration logic
-    };
-
-    // Trigger animation on mount
     useEffect(() => {
         setIsAnimated(true);
     }, []);
 
+    if (!isAuthenticated) {
+        return (
+            <div>
+                <h2>Please log in to make a donation.</h2>
+                <button onClick={() => loginWithRedirect()}>Log In</button>
+            </div>
+        );
+    }
+
+    console.log(user.name)
     return (
         <div id={id}>
             <div className="donate-section">
@@ -118,12 +133,10 @@ const Donate = ({ id }) => {
                         <h2>{`Donate ${donationType.charAt(0).toUpperCase() + donationType.slice(1)}`}</h2>
                         <form onSubmit={handleSubmit}>
                             {/* Form fields */}
-                            <label htmlFor="firstName">First Name:</label>
-                            <input type="text" id="firstName" name="firstName" required value={formData.firstName} onChange={handleChange} />
-                            <label htmlFor="lastName">Last Name:</label>
-                            <input type="text" id="lastName" name="lastName" value={formData.lastName} onChange={handleChange} />
+                            <label htmlFor="name">Name (Anonymous):</label>
+                            <input type="text" id="name" name="name" value={formData.name} onChange={handleChange} />
                             <label htmlFor="email">Email:</label>
-                            <input type="email" id="email" name="email" required value={formData.email} onChange={handleChange} />
+                            <input type="email" id="email" name="email" required value={formData.email} onChange={handleChange} /> 
                             <label htmlFor="mobile">Mobile:</label>
                             <input type="text" id="mobile" name="mobile" required value={formData.mobile} onChange={handleChange} />
                             <label htmlFor="address">Address:</label>
@@ -143,7 +156,7 @@ const Donate = ({ id }) => {
                             <button type="submit" className="donation-button">Submit Donation</button>
                         </form>
                         {donationType === 'money' && (
-                            <button className="donation-button" onClick={googlePay}>Pay with Google Pay</button>
+                            <button className="donation-button" >Pay with Google Pay</button>
                         )}
                     </div>
                 )}
@@ -151,5 +164,6 @@ const Donate = ({ id }) => {
         </div>
     );
 };
+
 
 export default Donate;

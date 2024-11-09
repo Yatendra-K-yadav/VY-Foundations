@@ -5,11 +5,12 @@ import Footer from './Footer';
 import './DonationList.css'; 
 import { useAuth0 } from "@auth0/auth0-react";
 
+
 axios.defaults.baseURL = "http://localhost:8080/";
 
 const DonationsList = () => {
 
-    const { user, isAuthenticated, isLoading } = useAuth0();
+    
     const [dataList, setDataList] = useState([]);
     const [loading, setLoading] = useState(true); 
     
@@ -83,30 +84,26 @@ const DonationsList = () => {
                 <table>
                     <thead>
                         <tr>
-                            <th>First Name</th>
-                            <th>Last Name</th>
+                            <th>Name</th>
                             <th>Email</th>
                             <th>Mobile</th>
                             <th>Address</th>
                             <th>Amount</th>
                             <th>Details</th>
                             <th>PROGRESS</th>
-                            <th>EDIT</th>
                             <th>DELETE</th>
                         </tr>
                     </thead>
                     <tbody>
                         {dataList.map((donation) => (
                             <tr key={donation._id}>
-                                <td>{donation.firstName}</td>
-                                <td>{donation.lastName}</td>
+                                <td>{donation.name}</td>
                                 <td>{donation.email}</td>
                                 <td>{donation.mobile}</td>
                                 <td>{donation.address || 'N/A'}</td>
                                 <td>{donation.amount || 'N/A'}</td>
-                                <td>{donation.details || 'N/A'}</td>
+                                <td>{donation.donationtype || 'N/A'}</td>
                                 <td>IN PROGRESS</td>
-                                <td><button>EDIT</button></td>
                                 <td><button onClick={() => handledelete(donation._id)}>DELETE</button></td>
                             </tr>
                         ))}

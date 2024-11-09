@@ -1,25 +1,14 @@
 import React from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import {Link} from 'react-router-dom';
 import './Header.css'; 
 import { useAuth0 } from "@auth0/auth0-react";
 
 const Header = () => {
 
-  const { user, isAuthenticated, isLoading } = useAuth0();
-  const navigate = useNavigate();  // Move the hook here at the top level
+  const { user, isAuthenticated} = useAuth0();
 
-  if (isLoading) {
-    return <div>Loading ...</div>;
-  }
+  const { loginWithRedirect, logout } = useAuth0();
 
-  const handleLoginSignupClick = () => {
-    navigate('/login');
-  };
-
-  const handleLogoutClick = () => {
-    
-    window.location.href = '/login'; 
-  };
 
   return (
     <header className="header-container">
@@ -38,10 +27,10 @@ const Header = () => {
           <div className="user-info">
             <img src={user.picture} alt={user.name} className="user-picture" />
             <h2>{user.name}</h2>
-            <button className="logout-button" onClick={handleLogoutClick}>Logout</button>
+            <button className="logout-button" onClick={() => logout()}>Logout</button>
           </div>
         ) : (
-          <button className="loginsignup-button" onClick={handleLoginSignupClick}>LOGIN / SIGN UP</button>
+          <button className="loginsignup-button" onClick={() => loginWithRedirect()}>LOGIN / SIGN UP</button>
         )}
       </div>
     </header>

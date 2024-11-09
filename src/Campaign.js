@@ -1,10 +1,12 @@
 
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import './Campaign.css';
 import Header from './Header';
 import Footer from './Footer';
 import Event from './Events';
+import axios from 'axios';
 
+axios.defaults.baseURL = "http://localhost:8080/";
 
 const donations = [
     { donor: "Anonymous", amount: "$100", date: "2024-10-19" },
@@ -14,6 +16,9 @@ const donations = [
 
 const CampaignSection = () => {
 
+    const [dataList, setDataList] = useState([]);
+    const [loading, setLoading] = useState(true); 
+
     const scrollToSection = (id) => {
         document.getElementById(id).scrollIntoView({ behavior: 'smooth' });
     };
@@ -22,6 +27,29 @@ const CampaignSection = () => {
     const currentAmount = donations.reduce((total, donation) => total + parseFloat(donation.amount.replace('$', '')), 0);
     const progressPercentage = Math.min((currentAmount / targetAmount) * 100, 100); 
 
+    const getFetchedData = async () => {
+        try {
+            setLoading(true);
+            const response = await axios.get("/");
+            console.log('Datalist def:', response); 
+            console.log('Datalist frg:', response.data);
+            if (response.data.success) {
+                setDataList(response.data.users); 
+                console.log('Datalist abcd:', dataList); 
+            } 
+        } catch (error) {
+            console.error("Error fetching data:", error);
+            alert("Failed to fetch data. Please try again later.");
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    useEffect(() => {
+        getFetchedData();
+    }, []);
+
+    
     return (
         <>
             <Header />
@@ -70,10 +98,10 @@ const CampaignSection = () => {
                         <div className="donation-list-container">
                             <h4>Anonymous Donations:</h4>
                             <div className="donation-list">
-                                {donations.map((donation, index) => (
-                                    <div key={index} className="donation-item">
-                                        <span>{donation.donor} - {donation.amount}</span>
-                                        <span className="donation-date">{donation.date}</span>
+                                {dataList.map((donation) => (
+                                    <div className="donation-item">
+                                        <span>{donation.name || "Anonymous"} - {donation.donationType}</span>
+                                        <span className="donation-date">{donation.createdAt}</span>
                                     </div>
                                 ))}
                             </div>
