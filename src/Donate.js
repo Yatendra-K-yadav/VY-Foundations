@@ -7,7 +7,7 @@ axios.defaults.baseURL = "http://localhost:8080/";
 const Donate = ({ id }) => {
     const { user, isAuthenticated, loginWithRedirect } = useAuth0();
 
-    // Wait for user to be available before using its properties
+
     const [donationType, setDonationType] = useState(null);
     const [showForm, setShowForm] = useState(false);
     const [formData, setFormData] = useState({

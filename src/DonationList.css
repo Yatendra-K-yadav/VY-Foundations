@@ -78,3 +78,132 @@ donation-intro {
     font-weight: bold;
 }
 
+.donation-form {
+    background-color: #f5f5f5;
+    padding: 20px;
+    margin: 20px auto;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    max-width: 500px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.donation-form label {
+    display: block;
+    margin-top: 10px;
+    font-weight: bold;
+}
+
+.donation-form input,
+.donation-form textarea {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.donation-form button {
+    margin-top: 15px;
+    padding: 10px 20px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.cancel-button {
+    color: #f00;
+    background: transparent;
+    font-size: 1rem;
+    margin-bottom: 10px;
+    cursor: pointer;
+}
+
+.donate-section {
+    background-color: #f9f9f9; 
+    padding: 40px; 
+    text-align: center; 
+    border-radius: 8px; 
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); 
+}
+
+.donate-title {
+    font-size: 2em; 
+    margin-bottom: 20px; 
+    color: #333; 
+}
+
+.donation-intro {
+    max-width: 800px; 
+    margin: 0 auto; 
+    padding: 10px; 
+    color: #555; 
+}
+
+.donation-container {
+    display: flex; 
+    justify-content: center; 
+    flex-wrap: wrap; 
+    gap: 20px; 
+    padding: 20px; 
+}
+
+
+.donation-form {
+    background: #fff; 
+    border-radius: 8px; 
+    padding: 30px; 
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); 
+    margin: auto; 
+    width: 800px; 
+    position: relative; 
+    border: 3px;
+}
+
+.cancel-button {
+    position: absolute; 
+    top: 10px; 
+    right: 10px; 
+    background: transparent; 
+    border: none; 
+    color: #ff9800; 
+    cursor: pointer; 
+    font-size: 0.9em; 
+}
+
+.donation-form h2 {
+    font-size: 1.5em; 
+    margin-bottom: 15px; 
+    color: #333; 
+}
+
+.donation-form label {
+    display: block; 
+    margin-bottom: 5px; 
+}
+
+.donation-form input,
+.donation-form textarea {
+    width: 100%; 
+    padding: 8px; 
+    margin-bottom: 15px; 
+    border: 1px solid #ccc; 
+    border-radius: 4px; 
+}
+
+.donation-form button {
+    background-color: #ff9800; 
+    color: white; 
+    border: none; 
+    padding: 10px 15px; 
+    border-radius: 5px; 
+    cursor: pointer; 
+}
+
+.donation-form button:hover {
+    background-color: #754905; 
+}
+
+

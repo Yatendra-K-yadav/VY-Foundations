@@ -2,29 +2,34 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import Header from './Header';
 import Footer from './Footer';
-import './DonationList.css'; 
-import { useAuth0 } from "@auth0/auth0-react";
-
+import './DonationList.css';
 
 axios.defaults.baseURL = "http://localhost:8080/";
 
 const DonationsList = () => {
-
-    
     const [dataList, setDataList] = useState([]);
-    const [loading, setLoading] = useState(true); 
-    
+    const [loading, setLoading] = useState(true);
+    const [donationType, setDonationType] = useState(null);
+    const [showForm, setShowForm] = useState(false);
+    const [editSection, setEditSection] = useState(false);
+    const [formData, setFormData] = useState({
+        name: '', email: '', mobile: '', address: '', amount: '', donationType: '', details: ''
+    });
+    const [formdataedit, setFormDataEdit] = useState({
+        firstName: "", lastName: "", email: "", mobile: "", _id: ""
+    });
+
+    useEffect(() => {
+        getFetchedData();
+    }, []);
 
     const getFetchedData = async () => {
         try {
             setLoading(true);
             const response = await axios.get("/");
-            console.log('Datalist def:', response); 
-            console.log('Datalist frg:', response.data);
             if (response.data.success) {
-                setDataList(response.data.users); 
-                console.log('Datalist abcd:', dataList); 
-            } 
+                setDataList(response.data.users);
+            }
         } catch (error) {
             console.error("Error fetching data:", error);
             alert("Failed to fetch data. Please try again later.");
@@ -33,51 +38,97 @@ const DonationsList = () => {
         }
     };
 
-    const handledelete = async (id) => {
+    const handleSubmit = async (e) => {
+        e.preventDefault();
         try {
-            const data = await axios.delete("/delete/" + id);
-            
-            if (data.data.sucess) {
+            const response = await axios.post("/donate", formData);
+            if (response.data.success) {
+                alert("Donation successfully submitted!");
                 getFetchedData();
-                alert(data.data.message);
+                handleCancelClick();
+            }
+        } catch (error) {
+            console.error("Error submitting donation:", error);
+            alert("Failed to submit donation.");
+        }
+    };
+
+    const handleDelete = async (id) => {
+        try {
+            const response = await axios.delete(`/delete/${id}`);
+            if (response.data.success) {
+                getFetchedData();
+                alert(response.data.message);
             }
         } catch (error) {
             console.error("Error deleting user:", error);
             alert("Failed to delete user. Please try again later.");
         }
-        finally{
-            window.location.reload()
+    };
+
+    const handleUpdate = async (e) => {
+        e.preventDefault();
+        try {
+            const response = await axios.put("/update", formdataedit);
+            if (response.data.success) {
+                getFetchedData();
+                alert(response.data.message);
+                setEditSection(false);
+            }
+        } catch (error) {
+            console.error("Error updating user:", error);
+            alert("Failed to update donation. Please try again later.");
         }
     };
 
+    const handleEditChange = (e) => {
+        const { value, name } = e.target;
+        setFormDataEdit((prev) => ({ ...prev, [name]: value }));
+    };
 
-    useEffect(() => {
-        getFetchedData();
-    }, []);
+    const handleEdit = (donation) => {
+        setFormDataEdit(donation);
+        setEditSection(true);
+    };
 
+    const handleCancelClick = () => {
+        setShowForm(false);
+        setDonationType(null);
+        setFormData({ name: '', email: '', mobile: '', address: '', amount: '', donationType: '', details: '' });
+    };
 
-    console.log('Datalist abcdddd:', dataList);
-
+    const handleChange = (e) => {
+        const { name, value } = e.target;
+        setFormData((prevData) => ({ ...prevData, [name]: value }));
+    };
 
     return (
         <div className="donations-list">
             <Header />
             <div className="donation-intro">
                 <h2>Support Our Mission</h2>
-                <p>
-                    Thank you for visiting our donations page! Your contributions make a significant difference in the lives of those in need. Below, you can see a list of recent donations that have helped us provide essential resources like food, clothing, shelter, and education to communities in need.
-                </p>
-                <p>
-                    We value transparency, so we've provided the details of all contributions made to our organization. Every donation—no matter how big or small—helps us reach our goals and create a better future for the less fortunate.
-                </p>
-                <p>
-                    If you would like to contribute, please click the <strong>Donate</strong> button below or contact us for more information.
-                </p>
+                <p>Your contributions make a significant difference in the lives of those in need.</p>
             </div>
-            
-            <h1>Donations List</h1>
-            {loading ? ( 
-                <p>Loading...</p>
+
+            {editSection ? (
+                <form onSubmit={handleUpdate} className="donation-form">
+                    <label htmlFor="name">Name:</label>
+                    <input type="text" id="name" name="name" value={formdataedit.name} onChange={handleEditChange} />
+                    <label htmlFor="email">Email:</label>
+                    <input type="email" id="email" name="email" required value={formdataedit.email} onChange={handleEditChange} />
+                    <label htmlFor="mobile">Mobile:</label>
+                    <input type="text" id="mobile" name="mobile" required value={formdataedit.mobile} onChange={handleEditChange} />
+                    <label htmlFor="address">Address:</label>
+                    <input type="text" id="address" name="address" value={formdataedit.address} onChange={handleChange} />
+                
+                    <button type="submit">Update</button>
+                </form>
+            ) : (
+                <h1>Donations List</h1>
+            )}
+
+            {loading ? (
+                <p className="loading-message">Loading...</p>
             ) : dataList.length === 0 ? (
                 <p>No donations available.</p>
             ) : (
@@ -89,9 +140,10 @@ const DonationsList = () => {
                             <th>Mobile</th>
                             <th>Address</th>
                             <th>Amount</th>
-                            <th>Details</th>
-                            <th>PROGRESS</th>
-                            <th>DELETE</th>
+                            <th>Donation Type</th>
+                            <th>Progress</th>
+                            <th>Edit</th>
+                            <th>Delete</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -102,9 +154,10 @@ const DonationsList = () => {
                                 <td>{donation.mobile}</td>
                                 <td>{donation.address || 'N/A'}</td>
                                 <td>{donation.amount || 'N/A'}</td>
-                                <td>{donation.donationtype || 'N/A'}</td>
-                                <td>IN PROGRESS</td>
-                                <td><button onClick={() => handledelete(donation._id)}>DELETE</button></td>
+                                <td>{donation.donationType || 'N/A'}</td>
+                                <td>In Progress</td>
+                                <td><button onClick={() => handleEdit(donation)}>Edit</button></td>
+                                <td><button onClick={() => handleDelete(donation._id)}>Delete</button></td>
                             </tr>
                         ))}
                     </tbody>

@@ -3,29 +3,17 @@ import React, { useEffect, useState } from 'react';
 import './Campaign.css';
 import Header from './Header';
 import Footer from './Footer';
-import Event from './Events';
+
 import axios from 'axios';
 
 axios.defaults.baseURL = "http://localhost:8080/";
 
-const donations = [
-    { donor: "Anonymous", amount: "$100", date: "2024-10-19" },
-    { donor: "Anonymous", amount: "$50", date: "2024-10-18" },
-    { donor: "Anonymous", amount: "$25", date: "2024-10-17" },
-];
 
 const CampaignSection = () => {
 
     const [dataList, setDataList] = useState([]);
     const [loading, setLoading] = useState(true); 
 
-    const scrollToSection = (id) => {
-        document.getElementById(id).scrollIntoView({ behavior: 'smooth' });
-    };
-
-    const targetAmount = 1000; 
-    const currentAmount = donations.reduce((total, donation) => total + parseFloat(donation.amount.replace('$', '')), 0);
-    const progressPercentage = Math.min((currentAmount / targetAmount) * 100, 100); 
 
     const getFetchedData = async () => {
         try {
@@ -83,7 +71,7 @@ const CampaignSection = () => {
                     </div>
 
                     <div className="campaign-side">
-                        <div className="progress-container">
+                        {/* <div className="progress-container">
                             <div className="progress-info">
                                 <h3>Progress</h3>
                                 <p className="progress-percentage">{progressPercentage.toFixed(0)}%</p>
@@ -92,15 +80,15 @@ const CampaignSection = () => {
                                 <div className="progress" style={{ width: `${progressPercentage}%` }}></div>
                             </div>
                             <p className="progress-date">{new Date().toLocaleDateString()}</p>
-                            <button className="donate-button" onClick={() => scrollToSection('donate-section-abcd') }>Donate Now</button>
-                        </div>
+                            <button className="donate-button" >Donate Now</button>
+                        </div> */}
 
                         <div className="donation-list-container">
                             <h4>Anonymous Donations:</h4>
                             <div className="donation-list">
                                 {dataList.map((donation) => (
                                     <div className="donation-item">
-                                        <span>{donation.name || "Anonymous"} - {donation.donationType}</span>
+                                        <span>{"Anonymous"} - {donation.donationType}</span>
                                         <span className="donation-date">{donation.createdAt}</span>
                                     </div>
                                 ))}
@@ -110,7 +98,6 @@ const CampaignSection = () => {
                 </div>
                 
             </div>
-            <Event />
             <Footer />
         </>
     );

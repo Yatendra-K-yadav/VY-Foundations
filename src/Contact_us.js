@@ -16,7 +16,7 @@ const ContactPage = () => {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 1 }}
       >
-        Contact With Me
+        Connect With Us
       </motion.h1>
       <motion.p
         className="welcome-message"
